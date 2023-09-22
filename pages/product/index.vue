@@ -55,7 +55,7 @@ function removeProduct(id: number) {
       <v-breadcrumbs>
         <VIcon name="majesticons:home" />
         /
-        <v-breadcrumbs-item to="/product" disabled>
+        <v-breadcrumbs-item to="/product" item>
           Product
         </v-breadcrumbs-item>
       </v-breadcrumbs>

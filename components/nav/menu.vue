@@ -1,29 +1,19 @@
 <template>
-  <div class="flex items-center ">
+  <div class="w-full ">
     <VList>
-      <VListItem to="/">
-        <div class="flex items-center gap-5">
-          <VIcon name="radix-icons:dashboard" style="color: white;" />
-          <h1 class="text-white text-md">
-            Home
-          </h1>
-        </div>
+      <VListItem
+        prepend-icon="ri:home-2-line"
+        hide-append
+        class="!text-white"
+        to="/"
+      >
+        <h1>Item 1</h1>
       </VListItem>
-      <VListItem to="/product">
-        <div class="flex items-center gap-5">
-          <VIcon name="game-icons:cardboard-box-closed" style="color: white;" />
-          <h1 class="text-white text-md">
-            Product
-          </h1>
-        </div>
+      <VListItem prepend-icon="game-icons:cardboard-box-closed" hide-append class="!text-white" to="/product">
+        Item 1
       </VListItem>
-      <VListItem to="/transactions">
-        <div class="flex items-center gap-5">
-          <VIcon name="fe:wallet" style="color: white;" />
-          <h1 class="text-white text-md ">
-            Transactions
-          </h1>
-        </div>
+      <VListItem prepend-icon="fe:wallet" hide-append class="!text-white" to="/transactions">
+        Item 1
       </VListItem>
     </VList>
   </div>

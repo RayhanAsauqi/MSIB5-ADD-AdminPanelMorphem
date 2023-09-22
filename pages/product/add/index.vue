@@ -5,7 +5,7 @@ import { ref } from 'vue'
 
 const value = ref()
 const editor = ref('')
-const productStore = useProductStore()
+// const productStore = useProductStore()
 const newProduct = ref({
   name: '',
   price: 1,
