@@ -4,16 +4,27 @@
       <VListItem
         prepend-icon="ri:home-2-line"
         hide-append
-        class="!text-white"
         to="/"
       >
-        <h1>Item 1</h1>
+        <h1 class="text-md">
+          Home
+        </h1>
       </VListItem>
-      <VListItem prepend-icon="game-icons:cardboard-box-closed" hide-append class="!text-white" to="/product">
-        Item 1
+      <VListItem
+        prepend-icon="game-icons:cardboard-box-closed"
+        hide-append
+        to="/product"
+        color="darkBlue"
+        class=""
+      >
+        <h1 class="text-md">
+          Products
+        </h1>
       </VListItem>
-      <VListItem prepend-icon="fe:wallet" hide-append class="!text-white" to="/transactions">
-        Item 1
+      <VListItem prepend-icon="fe:wallet" hide-append to="/transactions">
+        <h1 class="text-md">
+          Transactions
+        </h1>
       </VListItem>
     </VList>
   </div>

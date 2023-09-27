@@ -32,7 +32,6 @@ export const useProductStore = defineStore('product', {
       }
     },
     async deleteProduct(productId: number) {
-      // Lakukan operasi penghapusan data di sini, misalnya dengan HTTP request atau langsung memanipulasi state.
       const index = this.products.findIndex(product => product.id === productId)
       if (index !== -1)
         this.products.splice(index, 1)
@@ -42,8 +41,8 @@ export const useProductStore = defineStore('product', {
         this.products.push({
           id: this.products.length + 1,
           title: newProduct.title,
-          price: newProduct.category,
-          category: newProduct.price,
+          price: newProduct.price,
+          category: newProduct.category,
           img: newProduct.img,
         },
         )
@@ -51,6 +50,18 @@ export const useProductStore = defineStore('product', {
       catch (error) {
       }
     },
+    editProduct(id: number, updateProduct: any): void {
+      const index = this.products.findIndex(product => product.id === id)
+      if (index !== -1) {
+        this.products[index] = {
+          ...this.products[index],
+          ...updateProduct,
+        }
+      }
+    },
+    // getSingleProduct(id: number): void {
+    //   this.products
+    // },
   },
 
 })

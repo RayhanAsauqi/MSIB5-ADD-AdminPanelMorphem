@@ -6,9 +6,11 @@ import { useForm } from 'vee-validate'
 import { VEditor } from '@morpheme/editor'
 import { ref } from 'vue'
 
-// const price = ref(0)
+const title = ref('')
+const price = ref(0)
+const descriptions = ref('')
 const showAlert = ref(false)
-const productStore = useProductStore()
+const { id } = useRoute().params
 
 const schema = object({
   image: mixed().required().label('image'),
@@ -17,32 +19,14 @@ const schema = object({
   category: string().required().label('Category'),
   descriptions: string().required().label('Descriptions'),
 })
-const { resetForm } = useForm({
+
+const { handleSubmit, resetForm } = useForm({
   validationSchema: schema,
 })
-
-const newProduct = ref({
-  id: null,
-  title: '',
-  price: null,
-  category: '',
-  img: '',
-
+const onSubmit = handleSubmit((values) => {
+  useProductStore().editProduct(Number(id), values)
 })
 
-definePageMeta({
-  breadcrumbs: [
-    {
-      title: 'Products',
-      to: '/product',
-    },
-    {
-      title: 'Add',
-      to: '/product/add',
-    },
-
-  ] as VBreadcrumbItemProps[],
-})
 const items = ref<VSelectItem[]>([
   {
     text: 'Smartphone',
@@ -57,38 +41,53 @@ const items = ref<VSelectItem[]>([
     value: 3,
   },
 ])
+definePageMeta({
+  breadcrumbs: [
+    {
+      title: 'Products',
+      to: '/products',
+    },
+    {
+      title: 'AddProducts',
+      to: '/product/editProducts/1',
+    },
+
+  ] as VBreadcrumbItemProps[],
+})
 </script>
 
 <template>
   <ClientOnly>
-    <div class="py-1">
+    <div class="py-1 ">
       <h1 class="text-center text-4xl font-semibold text-gray-900">
-        Tambah Products
+        Edit Products
       </h1>
       <p class="text-center text-sm font-semibold text-gray-500">
-        Tambah Product kamu disini
+        Edit Product kamu disini
       </p>
     </div>
-    <div class="py-10 px-10 ">
+    <div class="py-10 px-10">
       <VCard>
-        <VAlert v-model="showAlert" />
+        <VAlert v-model="showAlert" bordered color="secondary">
+          secondary
+        </VAlert>
         <VFileUpload theme="image" name="image" />
         <div class="flex justify-center w-full gap-5 pt-10">
           <div class="w-1/2">
-            <VInput v-model="newProduct.title" label="Name" name="title" />
+            <VInput v-model="title" label="Name" name="title" />
           </div>
           <div class="w-1/2">
-            <VInput label="Price" name="price" />
+            <VInput v-model="price" label="Price" name="price" />
           </div>
         </div>
         <div class="pt-10">
           <VSelect :items="items" name="category" />
         </div>
         <div class="pt-10">
-          <VEditor label="Description" name="descriptions" />
+          <VEditor v-model="descriptions" label="Description" name="descriptions" />
         </div>
         <div class="pt-10 flex gap-2">
-          <VBtn @click="productStore.addProduct(newProduct)">
+          <VBtn @click="onSubmit">
             Submit
           </VBtn>
           <VBtn @click="resetForm">

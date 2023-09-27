@@ -1,19 +1,36 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import type { VDataTableHeader } from '@morpheme/table'
+import type { VBreadcrumbItemProps } from '@morpheme/BreadCrumbs'
+
+// import { breakpointsTailwind } from '@vueuse/core'
 import { useProductStore } from '~/stores/productStore'
 
+// const breakpoints = useBreakpoints(breakpointsTailwind)
+// const isMobile = breakpoints.smaller('sm')
 const productStore = useProductStore()
 const isOpen = ref(false)
 const loading = ref(false)
 onMounted(async () => {
-  await productStore.fetchDataProduct()
+  if (productStore.products.length === 0)
+    await productStore.fetchDataProduct()
 })
 
 watch(() => productStore.searchProducts, () => {
   // eslint-disable-next-line no-unused-expressions
   productStore.filteredProduct
 })
+
+definePageMeta({
+  breadcrumbs: [
+    {
+      title: 'Product',
+      to: '/product',
+    },
+
+  ] as VBreadcrumbItemProps[],
+})
+
 const headers = ref<VDataTableHeader[]>([
   {
     value: 'img',
@@ -38,12 +55,12 @@ const headers = ref<VDataTableHeader[]>([
 ])
 
 const itemId = ref<number>(0)
-function getIdProduct(id: number) {
+function getIdProduct(id: number): void {
   isOpen.value = true
   itemId.value = id
 }
 
-function removeProduct(id: number) {
+function removeProduct(id: number): void {
   productStore.deleteProduct(id)
   isOpen.value = false
 }
@@ -51,15 +68,6 @@ function removeProduct(id: number) {
 
 <template>
   <div class="container px-10 ">
-    <div class="pt-10">
-      <v-breadcrumbs>
-        <VIcon name="majesticons:home" />
-        /
-        <v-breadcrumbs-item to="/product" item>
-          Product
-        </v-breadcrumbs-item>
-      </v-breadcrumbs>
-    </div>
     <div class="mb-5">
       <h1 class="text-2xl font-semibold mb-1">
         Products
@@ -69,8 +77,8 @@ function removeProduct(id: number) {
     <div class="mb-5">
       <!-- card start -->
       <VCard>
-        <div class="w-full ">
-          <div class="flex justify-between">
+        <div class=" ">
+          <div class="lg:flex lg:justify-between ">
             <div>
               <VInput
                 v-model="productStore.searchProducts"
@@ -79,8 +87,8 @@ function removeProduct(id: number) {
               />
             </div>
             <div>
-              <NuxtLink to="product/add">
-                <VBtn color="primary" shadow>
+              <NuxtLink to="/product/add">
+                <VBtn color="darkBlue" shadow class="!text-white !w-full !mt-2 hover:bg-[#d3cfff]">
                   <VIcon name="majesticons:plus-line" />
                   Tambah
                 </VBtn>
@@ -97,15 +105,15 @@ function removeProduct(id: number) {
             <template #item.action="{ item }">
               <div class="flex justify-center gap-2">
                 <!-- <template #activator="{ open }"> -->
-                <VBtn>
-                  <VIcon name="fe:eye" @click="getIdProduct(item.id)" />
+                <VBtn class="hover:bg-[#d3cfff]">
+                  <VIcon name="fe:eye" />
                 </VBtn>
                 <!-- </template> -->
-                <VBtn to="product/edit">
+                <VBtn :to="`product/edit/${item.id}`" class="hover:bg-[#d3cfff]">
                   <VIcon name="majesticons:pencil-line" />
                 </VBtn>
-                <VBtn>
-                  <VIcon name="majesticons:trash-line" @click="getIdProduct(item.id)" />
+                <VBtn class="hover:bg-[#d3cfff]" @click="getIdProduct(item.id) ">
+                  <VIcon name="majesticons:trash-line" />
                 </VBtn>
               </div>
             </template>
@@ -130,3 +138,10 @@ function removeProduct(id: number) {
     <p>Are you sure want to delete this item?</p>
   </VModal>
 </template>
+
+<style lang="scss">
+:root{
+
+  --btn-active-hover-color: var(--color-dark-blue-200)
+}
+</style>

@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { VDataTableHeader } from '@morpheme/table'
+import type { VBreadcrumbItemProps } from '@morpheme/BreadCrumbs'
 
 const items = ref([
   {
@@ -11,8 +12,17 @@ const items = ref([
   {
     text: 'Tab Item 3',
   },
-  // ...
 ])
+
+definePageMeta({
+  breadcrumbs: [
+    {
+      title: 'Transactions',
+      to: '/transactions',
+    },
+
+  ] as VBreadcrumbItemProps[],
+})
 const headers = ref<VDataTableHeader[]>([
   {
     value: 'order',

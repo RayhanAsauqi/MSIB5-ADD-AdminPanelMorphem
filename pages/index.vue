@@ -1,3 +1,17 @@
+<script setup lang="ts">
+import type { VBreadcrumbItemProps } from '@morpheme/BreadCrumbs'
+
+definePageMeta({
+  breadcrumbs: [
+    {
+      title: 'Home',
+      to: '/',
+    },
+
+  ] as VBreadcrumbItemProps[],
+})
+</script>
+
 <template>
   <div class="container">
     <VAppShell padded-content>

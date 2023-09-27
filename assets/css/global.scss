@@ -1,6 +1,35 @@
 :root {
   --body-bg-color: var(--color-white);
   --body-text-color: var(--color-gray-700);
+  --color-dark-blue-50: #f2f1ff;
+  --color-dark-blue-100: #e8e5ff;
+  --color-dark-blue-200: #d3cfff;
+  --color-dark-blue-300: #b3a9ff;
+  --color-dark-blue-400: #8e78ff;
+  --color-dark-blue-500: #6a42ff;
+  --v-list-item-hover-bg-color: var(--color-dark-blue-500)
+--color-dark-blue-600: #581bff;
+--color-dark-blue-700: #490af7;
+--color-dark-blue-800: #3a07c5;
+--color-dark-blue-900: #3408aa;
+--color-dark-blue-950: #1c0174;
+
+.btn-darkBlue{
+  --btn-bg-color: var(--color-dark-blue-400);
+  
+}
+
+
+// router-link-active router-link-exact-active v-list-item v-list-item--hover
+
+.v-list .router-link-exact-active  {
+  background-color: var(--color-dark-blue-400);
+}
+
+.v-list-item{
+  --v-list-item-hover-bg-color: var(--color-dark-blue-200)
+}
+
 }
 
 body {
